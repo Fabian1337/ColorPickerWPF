@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Windows;
 using System.Windows.Media;
 using ColorPickerWPF.Code;
@@ -20,7 +21,7 @@ namespace ColorPickerWPF
             InitializeComponent();
         }
         
-        public static bool ShowDialog(out Color color, ColorPickerDialogOptions flags = ColorPickerDialogOptions.None, ColorPickerControl.ColorPickerChangeHandler customPreviewEventHandler = null)
+        public static bool ShowDialog(out Color color, ColorPickerDialogOptions flags = ColorPickerDialogOptions.None, ColorPickerControl.ColorPickerChangeHandler customPreviewEventHandler = null, Color? initialColor = null)
         {
             if ((flags & ColorPickerDialogOptions.LoadCustomPalette) == ColorPickerDialogOptions.LoadCustomPalette)
             {
@@ -29,6 +30,8 @@ namespace ColorPickerWPF
 
             var instance = new ColorPickerWindow();
             color = instance.ColorPicker.Color;
+
+            instance.ColorPicker.SetColor(initialColor ?? Colors.White);
 
             if ((flags & ColorPickerDialogOptions.SimpleView) == ColorPickerDialogOptions.SimpleView)
             {
